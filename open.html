@@ -1,0 +1,20 @@
+<head>
+</head>
+
+<body>
+
+
+<button id='button_'> open the door </button>
+
+<script>
+    function open() {
+        console.log('opening door');
+        req = new XMLHttpRequest();
+
+        req.open('GET', '/open_door');
+        req.send();
+    }
+
+    document.getElementById('button_').addEventListener('click', open);
+</script>
+</body>
