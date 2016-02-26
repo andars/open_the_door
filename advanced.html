@@ -1,0 +1,26 @@
+<head>
+    <title> door control </title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link href='main.css' rel='stylesheet'>
+
+    <script src='control.js'></script>
+</head>
+
+<body>
+    <div>
+        <button class='control advanced' id='lock'> lock the door </button>
+    </div>
+    <div>
+        <button class='control advanced' id='unlock'> unlock the door </button>
+    </div>
+    
+
+    <script>
+        document.getElementById('lock').addEventListener('click', handler('lock_door'));
+        document.getElementById('lock').addEventListener('touchend', handler('lock_door'));
+        document.getElementById('unlock').addEventListener('click', handler('unlock_door'));
+        document.getElementById('unlock').addEventListener('touchend', handler('unlock_door'));
+    </script>
+</body>
