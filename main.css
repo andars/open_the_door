@@ -1,0 +1,42 @@
+body {
+    background-color: #444;
+}
+
+html {
+    font-family: "Copperplate";
+    font-size: 3em;
+}
+
+div {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    margin-top: 20%;
+}
+
+.control {
+    width: 100%;
+    font-family: "Copperplate";
+    font-size: 1em;
+    background-color: #eee;
+    border: 2px solid #ddd;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    height: 50%;
+}
+
+.control.advanced {
+    height: 20%;
+    font-size: 0.7em;
+}
+
+.control:active {
+    position: relative;
+    background-color: #fff;
+    top: 3px;
+}
+
+a {
+    display: block;
+    text-align: center;
+    color: white;
+}
