@@ -3,17 +3,35 @@ import SimpleHTTPServer
 import SocketServer
 
 import serial
+import glob
 
-ser = serial.Serial('/dev/ttyUSB1', 9600)
+def find_path():
+    return glob.glob('/dev/ttyUSB*')[0]
+
+ser = serial.Serial(find_path(), 9600)
+
+
+def send_command(cmd):
+    global ser
+    for i in range(2):
+        try:
+            ser.write(cmd)
+        except serial.SerialException as e:
+            if i < 2:
+                ser = serial.Serial(find_path(), 9600)
+            else:
+                return 404
+        return 200
 
 class MyRequestHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def do_GET(self):
+
         if self.path == '/open_door':
-            ser.write('o')             
-            self.send_response(200)
-        elif self.path == '/close_door':
-            ser.write('c')
-            self.send_response(200)
+            self.send_response(send_command('a'))
+        elif self.path == '/lock_door':
+            self.send_response(send_command('c'))
+        elif self.path == '/unlock_door':
+            self.send_response(send_command('o'))
         else:
             return SimpleHTTPServer.SimpleHTTPRequestHandler.do_GET(self)
 
