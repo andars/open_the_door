@@ -1,11 +1,12 @@
 // pin 2 - L298 in1
 // pin 3 - L298 in2
+// pin 4 - limit switch w/ pullup
 
 #define CLOSE_TIME 5000
 void setup() {
     pinMode(2, OUTPUT);
     pinMode(3, OUTPUT);
-    pinMode(4, INPUT);
+    pinMode(4, INPUT_PULLUP);
     Serial.begin(9600);
     
     neutral();
@@ -14,13 +15,14 @@ void setup() {
 void loop() {
     if (Serial.available() > 0) {
         char c = Serial.read();
-        if (c == 'o') {
+
+        if (c == 'a') {
             Serial.println("Received signal to open");
             delay(300);
             open();
 
             // wait for limit switch
-            while (!digitalRead(4)) {
+            while (digitalRead(4)) {
                 delay(10);
             }
 
@@ -32,6 +34,16 @@ void loop() {
             // close the door (doesn't really matter how far it goes)
             close();
             delay(CLOSE_TIME);
+        } else if (c == 'o') {
+            delay(300);
+            open();
+
+            // wait for limit switch
+            while (digitalRead(4)) {
+                delay(10);
+            }
+
+            neutral();
         } else if (c == 'c') { 
             Serial.println("Received signal to close");
             delay(300);
